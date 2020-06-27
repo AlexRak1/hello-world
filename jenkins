@@ -1,9 +1,5 @@
 pipeline{
     agent any
-	
-	environment{
-	    PATH = "/opt/maven/bin:$PATH"
-	}
 	stages{
 	    stage("Git Chekout"){
 		    steps{
@@ -12,9 +8,10 @@ pipeline{
 		}
 		stage("Maven Build"){
 		    steps{
-			    sh "maven clean package"
-				sh "mv target/*.war target/myweb.war"
-			}
+				withMaven(maven: 'maven'){
+					sh "maven clean package"
+					sh "mv target/*.war target/myweb.war"
+				}
 		}
 		stage("deploy-dev"){
 			steps{
