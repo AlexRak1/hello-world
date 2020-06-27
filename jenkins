@@ -12,6 +12,7 @@ pipeline{
 					sh "maven clean package"
 					sh "mv target/*.war target/myweb.war"
 				}
+			}
 		}
 		stage("deploy-dev"){
 			steps{
