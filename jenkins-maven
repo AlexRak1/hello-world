@@ -1,0 +1,20 @@
+ipeline{
+    agent any
+	
+	environment{
+	    PATH = "/opt/maven/bin:$PATH"
+	}
+	stages{
+	    stage("Git Chekout"){
+		    steps{
+			    git url: 'https://github.com/AlexRak1/hello-world.git'
+			}
+		}
+		stage("Maven Build"){
+		    steps{
+			    sh "maven clean package"
+				sh "mv target/*.war target/myweb.war"
+			}
+		}
+	}
+}
