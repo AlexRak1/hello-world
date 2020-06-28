@@ -31,6 +31,12 @@ pipeline{
 				}
 			}
 		}
+		stage("Deploy to Kubernetes"){
+			steps{
+				sh "chmode +x changeTag.sh"
+				sh "./changeTag.sh ${DOCKER_TAG}"
+			}
+		}
 		stage("deploy-dev"){
 			steps{
 				sshagent(['tomcat-new']) {
