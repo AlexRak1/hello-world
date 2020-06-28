@@ -1,0 +1,31 @@
+currentBuild.displayName = "DevOpsBootcamp-#"+currentBuild.number
+pipeline{
+    agent any
+	stages{
+	    stage("Git Chekout"){
+		    steps{
+			    git url: 'https://github.com/AlexRak1/hello-world.git'
+			}
+		}
+		stage("Maven Build"){
+		    steps{
+				withMaven(maven: 'maven'){
+					sh "mvn clean package"
+					sh "mv webapp/target/*.war  webapp/target/myweb.war"
+				}
+			}
+		}
+		stage("deploy-dev"){
+			steps{
+				sshagent(['tomcat-new']) {
+				sh """
+				    scp -o StrictHostKeyChecking=no webapp/target/myweb.war ec2-user@10.0.1.192:/opt/tomcat/webapps/
+				    ssh ec2-user@10.0.1.192 /opt/tomcat/bin/shutdown.sh
+					ssh ec2-user@10.0.1.192 /opt/tomcat/bin/startup.sh
+				"""
+		    }
+
+			}
+		}
+	}
+}
