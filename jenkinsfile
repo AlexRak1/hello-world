@@ -1,6 +1,9 @@
 currentBuild.displayName = "DevOpsBootcamp-#"+currentBuild.number
 pipeline{
     agent any
+	environment{
+		DOCKER_TAG = getDockerTag()
+	}
 	stages{
 	    stage("Git Chekout"){
 		    steps{
@@ -12,6 +15,19 @@ pipeline{
 				withMaven(maven: 'maven'){
 					sh "mvn clean package"
 					sh "mv webapp/target/*.war  webapp/target/myweb.war"
+				}
+			}
+		}
+		stage(Build Docker Image"){
+			steps{
+				sh"docker build . -t irakevich/hello-world:${DOCKER_TAG} "
+			}
+		}
+		stage("Docker Push"){
+			steps{
+				withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]){
+				sh "docker login -u irakevich -p ${dockerHubPwd}"
+				sh "docker push irakevich/hello-world${DOCKER_TAG}"
 				}
 			}
 		}
@@ -28,4 +44,8 @@ pipeline{
 			}
 		}
 	}
+def getDockerTag(){
+	def tag = sh script: 'git rev-parse HEAD', returnStdout: true
+	return tag
+}
 }
