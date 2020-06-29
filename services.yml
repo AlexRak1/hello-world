@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: hello-world
+  name: k8-service
 spec:
   selector:
     app: hello-world
