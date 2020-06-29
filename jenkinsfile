@@ -33,7 +33,7 @@ pipeline{
 		}
 		stage("Deploy to Kubernetes"){
 			steps{
-				sh "chmode +x changeTag.sh"
+				sh "chmod +x changeTag.sh"
 				sh "./changeTag.sh ${DOCKER_TAG}"
 				sshagent(['kops-machine']) {
 					sh "scp -o StrictHostKeyChecking=0 serviced.yml pod.yml ec2-user@3.135.214.158:/home/ec2-user/"
