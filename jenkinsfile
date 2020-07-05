@@ -18,8 +18,8 @@ pipeline{
 					sh "mv webapp/target/*.war  webapp/target/myweb.war"
 				}
 			}
-*/ 	}
-
+	}
+*/ 
 		stage("SonarQube analysis") {
 			steps{
 				withSonarQubeEnv('sonarqube') {
