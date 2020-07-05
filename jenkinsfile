@@ -22,8 +22,10 @@ pipeline{
 		stage("SonarQube analysis") {
 			steps{
 				withSonarQubeEnv('sonarqube') {
-					sh 'mvn clean package sonar:sonar'
-					} // submitted SonarQube taskId is automatically attached to the pipeline context
+					withMaven(maven: 'maven'){
+						sh "mvn clean package sonar:sonar"
+					}
+				} // submitted SonarQube taskId is automatically attached to the pipeline context
 			}
 		}
 		stage("Build Docker Image"){
