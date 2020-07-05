@@ -11,19 +11,20 @@ pipeline{
 			}
 		}
  		
-		stage("Maven Build"){
+/*		stage("Maven Build"){
 		    steps{
 				withMaven(maven: 'maven'){
 					sh "mvn clean package"
 					sh "mv webapp/target/*.war  webapp/target/myweb.war"
 				}
 			}
- 	}
+*/ 	}
 		stage("SonarQube analysis") {
 			steps{
 				withSonarQubeEnv('sonarqube') {
 					withMaven(maven: 'maven'){
-						sh "mvn -e -X clean package sonaradmin:sonaradmin"
+						sh "mvn -e -X clean package sonar:sonar"
+						sh "mv webapp/target/*.war  webapp/target/myweb.war"
 						 
 						//sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
 					}
