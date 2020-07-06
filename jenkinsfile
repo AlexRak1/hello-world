@@ -1,6 +1,9 @@
 currentBuild.displayName = "DevOpsBootcamp-#"+currentBuild.number
 pipeline{
     agent any
+	tools{
+		maven 'mvn'
+	}
 	environment{
 		DOCKER_TAG = getDockerTag()
 		MVN_HOME = mvnHome()
@@ -33,7 +36,7 @@ pipeline{
 			steps{
 				//Get maven home path
 				sh "echo ${MVN_HOME}bin/mvn"
-				sh "MVN_HOMEbin/mvn package"
+				sh "MVN_HOME2 package"
 			}
 		}
 	
@@ -42,7 +45,7 @@ pipeline{
 			steps{
 				def mvnHome = tool name: "maven", type: "maven"
 				withSonarQubeEnv('sonarqube1') {
-					sh "MVN_HOME/bin/mvn sonar:sonar"
+					sh "mvn sonar:sonar"
 				}
 			}
 		}
