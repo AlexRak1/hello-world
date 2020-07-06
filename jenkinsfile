@@ -52,8 +52,9 @@ pipeline{
 		stage("SonarQube analysis") {
 			steps{
 				withSonarQubeEnv('sonarqube1') {
-					 	 sh "echo ${SCAN_HOME}/bin/sonar-scanner"
-						sh "${SCAN_HOME}/bin/sonar-scanner" 
+					 	 sh "maven/bin sonar:sonar"
+						 //sh "echo ${SCAN_HOME}/bin/sonar-scanner"
+						//sh "${SCAN_HOME}/bin/sonar-scanner" 
 						//sh "mvn sonar:sonar"
 						//define mvnH=  sh "echo ${MVN_HOME}bin/mvn"
 						//sh "mvn  -e -X  sonar:sonar"
