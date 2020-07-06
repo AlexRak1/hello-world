@@ -38,6 +38,7 @@ pipeline{
 				}
 			}
 		}
+		*/
 		stage("SonarQube analysis") {
 			steps{
 				withSonarQubeEnv('sonarqube1') {
@@ -49,7 +50,7 @@ pipeline{
 				} // submitted SonarQube taskId is automatically attached to the pipeline context
 			}
 		}
-		*/
+		
 		stage("Build Docker Image"){
 			steps{
 				sh "docker build . -t irakevich/hello-world:${DOCKER_TAG} "
