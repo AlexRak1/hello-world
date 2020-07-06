@@ -41,9 +41,9 @@ pipeline{
 	
 		stage("SonarQube analysis") {
 			steps{
-				def mvnHome = tool name: "maven", type: "maven"
+				//def mvnHome = tool name: "maven", type: "maven"
 				withSonarQubeEnv('sonarqube1') {
-					sh "mvn sonar:sonar"
+					sh "maven/bin sonar:sonar"
 				}
 			}
 		}
@@ -51,9 +51,11 @@ pipeline{
 		stage("SonarQube analysis") {
 			steps{
 				withSonarQubeEnv('sonarqube1') {
-					 	//sh "mvn sonar:sonar"
+					 	def scannerHome = tool name: 'Scanner1', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+						sh "${scannerHome}/bin/sonar-scanner" 
+						//sh "mvn sonar:sonar"
 						//define mvnH=  sh "echo ${MVN_HOME}bin/mvn"
-						sh "mvn  -e -X  sonar:sonar"
+						//sh "mvn  -e -X  sonar:sonar"
 						//sh "mvn -e -X clean package sonar:sonar"
 						//sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.1.0.1829:sonar'					 
 					 
