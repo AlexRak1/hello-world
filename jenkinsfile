@@ -11,6 +11,14 @@ pipeline{
 			    git url: 'https://github.com/AlexRak1/hello-world.git'
 			}
 		}
+		stage{
+			stage("Testing stage") {
+				withMaven(maven: 'maven'){
+					sh "mvn test"
+				}
+				
+			}
+		}
  		
 		stage("Maven Build"){
 		    steps{
@@ -24,7 +32,7 @@ pipeline{
 		stage("Compile-Package"){
 			steps{
 				//Get maven home path
-				sh"echo ${MVN_HOME}"
+				sh "echo ${MVN_HOME}/bin/mvn"
 				sh "MVN_HOME/bin/mvn package"
 			}
 		}
@@ -42,12 +50,12 @@ pipeline{
 		stage("SonarQube analysis") {
 			steps{
 				withSonarQubeEnv('sonarqube1') {
-					withMaven(maven: 'maven'){
-						//sh "mvn sonar:sonar"
-						sh "mvn clean package sonar:sonar"
+					 	//sh "mvn sonar:sonar"
+						sh "echo ${MVN_HOME}/bin/mvn"
+						sh "MVN_HOME/bin/mvn clean package sonar:sonar"
 						//sh "mvn -e -X clean package sonar:sonar"
 						//sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.1.0.1829:sonar'					 
-					}
+					 
 				} // submitted SonarQube taskId is automatically attached to the pipeline context
 			}
 		}
