@@ -43,7 +43,8 @@ pipeline{
 			steps{
 				withSonarQubeEnv('sonarqube1') {
 					withMaven(maven: 'maven'){
-						sh "mvn sonar:sonar"
+						//sh "mvn sonar:sonar"
+						sh "mvn clean package sonar:sonar"
 						//sh "mvn -e -X clean package sonar:sonar"
 						//sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.1.0.1829:sonar'					 
 					}
