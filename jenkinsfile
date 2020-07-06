@@ -65,6 +65,8 @@ pipeline{
 				withSonarQubeEnv('sonarqube1') {
 				
 						sh "mvn -version"
+						sh"mvn clean verify sonar:sonar"
+						sh "mvn clean install"
 						sh "mvn sonar:sonar"
 					 
 				
