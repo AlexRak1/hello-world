@@ -20,7 +20,7 @@ pipeline{
 				}
 			}
 	}
-	/*
+/*
 		stage("Compile-Package"){
 			steps{
 				//Get maven home path
@@ -28,8 +28,8 @@ pipeline{
 				sh "MVN_HOME/bin/mvn package"
 			}
 		}
-	*/	
-		/*
+	
+	
 		stage("SonarQube analysis") {
 			steps{
 				def mvnHome = tool name: "maven", type: "maven"
@@ -38,7 +38,7 @@ pipeline{
 				}
 			}
 		}
-		*/
+*/
 		stage("SonarQube analysis") {
 			steps{
 				withSonarQubeEnv('sonarqube1') {
