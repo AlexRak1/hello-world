@@ -1,9 +1,7 @@
 currentBuild.displayName = "DevOpsBootcamp-#"+currentBuild.number
 pipeline{
     agent any
-	tools{
-		maven 'mvn'
-	}
+  
 	environment{
 		DOCKER_TAG = getDockerTag()
 		MVN_HOME = mvnHome()
@@ -54,8 +52,8 @@ pipeline{
 			steps{
 				withSonarQubeEnv('sonarqube1') {
 					 	//sh "mvn sonar:sonar"
-						sh "echo ${MVN_HOME}bin/mvn"
-						sh "MVN_HOMEbin/mvn clean package sonar:sonar"
+						define mvnH=  sh "echo ${MVN_HOME}bin/mvn"
+						sh "mvnH clean package sonar:sonar"
 						//sh "mvn -e -X clean package sonar:sonar"
 						//sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.1.0.1829:sonar'					 
 					 
