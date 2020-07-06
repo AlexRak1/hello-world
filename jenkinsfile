@@ -11,7 +11,7 @@ pipeline{
 			}
 		}
  		
-/*		stage("Maven Build"){
+		stage("Maven Build"){
 		    steps{
 				withMaven(maven: 'maven'){
 					sh "mvn clean package"
@@ -19,16 +19,14 @@ pipeline{
 				}
 			}
 	}
-*/ 
+
 		stage("SonarQube analysis") {
 			steps{
 				withSonarQubeEnv('sonarqube') {
 					withMaven(maven: 'maven'){
+						sh "mvn sonar:sonar"
 						//sh "mvn -e -X clean package sonar:sonar"
-						sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.1.0.1829:sonar'
-						sh "mv webapp/target/*.war  webapp/target/myweb.war"
-						 
-						 
+						//sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.1.0.1829:sonar'					 
 					}
 				} // submitted SonarQube taskId is automatically attached to the pipeline context
 			}
