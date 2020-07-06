@@ -1,6 +1,9 @@
 currentBuild.displayName = "DevOpsBootcamp-#"+currentBuild.number
 pipeline{
     agent any
+	tools{
+		maven "3.6.0"
+	}
   
 	environment{
 		DOCKER_TAG = getDockerTag()
@@ -21,7 +24,15 @@ pipeline{
 				
 			}
 		}
- 		
+		stage("Maven Build"){
+		    steps{
+				 
+					sh "mvn clean package"
+					sh "mv webapp/target/*.war  webapp/target/myweb.war"
+				 
+			}
+		}
+/* 		
 		stage("Maven Build"){
 		    steps{
 				withMaven(maven: 'maven'){
@@ -29,8 +40,8 @@ pipeline{
 					sh "mv webapp/target/*.war  webapp/target/myweb.war"
 				}
 			}
-	}
-/*
+		}
+
 		stage("Compile-Package"){
 			steps{
 				//Get maven home path
