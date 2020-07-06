@@ -52,7 +52,11 @@ pipeline{
 		stage("SonarQube analysis") {
 			steps{
 				withSonarQubeEnv('sonarqube1') {
-					 	 sh "maven/bin sonar:sonar"
+					withMaven(maven: 'maven'){
+						sh "mvn sonar:sonar"
+					 
+				}
+					 	 //sh "maven/bin sonar:sonar"
 						 //sh "echo ${SCAN_HOME}/bin/sonar-scanner"
 						//sh "${SCAN_HOME}/bin/sonar-scanner" 
 						//sh "mvn sonar:sonar"
