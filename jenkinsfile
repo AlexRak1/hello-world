@@ -24,6 +24,7 @@ pipeline{
 				
 			}
 		}
+/*
 		stage("Maven Build"){
 		    steps{
 				 
@@ -32,7 +33,7 @@ pipeline{
 				 
 			}
 		}
-/* 		
+ 	
 		stage("Maven Build"){
 		    steps{
 				withMaven(maven: 'maven'){
@@ -66,7 +67,9 @@ pipeline{
 				
 						sh "mvn -version"
 						sh"mvn clean verify sonar:sonar"
-						sh "mvn clean install"
+						//sh "mvn clean install"
+						sh "mvn clean package"
+						sh "mv webapp/target/*.war  webapp/target/myweb.war"
 						sh "mvn sonar:sonar"
 					 
 				
