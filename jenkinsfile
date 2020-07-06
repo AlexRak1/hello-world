@@ -32,8 +32,8 @@ pipeline{
 		stage("Compile-Package"){
 			steps{
 				//Get maven home path
-				sh "echo ${MVN_HOME}/bin/mvn"
-				sh "MVN_HOME/bin/mvn package"
+				sh "echo ${MVN_HOME}bin/mvn"
+				sh "MVN_HOMEbin/mvn package"
 			}
 		}
 	
