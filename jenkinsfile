@@ -119,6 +119,8 @@ def mvnHome(){
 	return mvnHome
 }
 def scanHome(){
- def scannerHome = tool name: 'Scanner1', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+ //def scannerHome = tool name: 'Scanner1', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+ def scannerHome= '/opt/sonar_scanner/bin'
+
  return scannerHome
 }
