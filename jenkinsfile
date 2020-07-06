@@ -11,8 +11,8 @@ pipeline{
 			    git url: 'https://github.com/AlexRak1/hello-world.git'
 			}
 		}
-		stage{
-			stage("Testing stage") {
+		stage("Testing stage"){
+			steps{
 				withMaven(maven: 'maven'){
 					sh "mvn test"
 				}
