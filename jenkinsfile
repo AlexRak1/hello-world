@@ -30,15 +30,15 @@ pipeline{
 		/*
 		stage("SonarQube analysis") {
 			steps{
-				def mvnHome = tool name: "sonarqube", type: "maven"
-				withSonarQubeEnv('sonarqube') {
+				def mvnHome = tool name: "maven", type: "maven"
+				withSonarQubeEnv('sonarqube1') {
 					sh "MVN_HOME/bin/mvn sonar:sonar"
 				}
 			}
 		}
 		stage("SonarQube analysis") {
 			steps{
-				withSonarQubeEnv('sonarqube') {
+				withSonarQubeEnv('sonarqube1') {
 					withMaven(maven: 'maven'){
 						sh "mvn sonar:sonar"
 						//sh "mvn -e -X clean package sonar:sonar"
@@ -99,6 +99,6 @@ def getDockerTag(){
 	return tag
 }
 def mvnHome(){
-	def mvnHome = tool name: 'sonarqube', type: 'maven'
+	def mvnHome = tool name: 'maven', type: 'maven'
 	return mvnHome
 }
