@@ -24,7 +24,7 @@ pipeline{
 				
 			}
 		}
-/*
+ 
 		stage("Maven Build"){
 		    steps{
 				 
@@ -33,34 +33,7 @@ pipeline{
 				 
 			}
 		}
- 	
-		stage("Maven Build"){
-		    steps{
-				withMaven(maven: 'maven'){
-					sh "mvn clean package"
-					sh "mv webapp/target/*.war  webapp/target/myweb.war"
-				}
-			}
-		}
-
-		stage("Compile-Package"){
-			steps{
-				//Get maven home path
-				sh "echo ${MVN_HOME}bin/mvn"
-				sh "MVN_HOME2 package"
-			}
-		}
-	
-	
-		stage("SonarQube analysis") {
-			steps{
-				//def mvnHome = tool name: "maven", type: "maven"
-				withSonarQubeEnv('sonarqube1') {
-					sh "maven/bin sonar:sonar"
-				}
-			}
-		}
-*/
+ /*
 		stage("SonarQube analysis") {
 			steps{
 				withSonarQubeEnv('sonarqube1') {
@@ -85,7 +58,7 @@ pipeline{
 				} // submitted SonarQube taskId is automatically attached to the pipeline context
 			}
 		}
-		
+*/		
 		stage("Build Docker Image"){
 			steps{
 				sh "docker build . -t irakevich/hello-world:${DOCKER_TAG} "
