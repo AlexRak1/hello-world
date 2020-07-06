@@ -5,6 +5,7 @@ pipeline{
 	environment{
 		DOCKER_TAG = getDockerTag()
 		MVN_HOME = mvnHome()
+		SCAN_HOME = scanHome()
 	}
 	stages{
 	    stage("Git Chekout"){
@@ -51,8 +52,8 @@ pipeline{
 		stage("SonarQube analysis") {
 			steps{
 				withSonarQubeEnv('sonarqube1') {
-					 	def scannerHome = tool name: 'Scanner1', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-						sh "${scannerHome}/bin/sonar-scanner" 
+					 	 
+						sh "${SCAN_HOME}/bin/sonar-scanner" 
 						//sh "mvn sonar:sonar"
 						//define mvnH=  sh "echo ${MVN_HOME}bin/mvn"
 						//sh "mvn  -e -X  sonar:sonar"
@@ -116,4 +117,8 @@ def getDockerTag(){
 def mvnHome(){
 	def mvnHome = tool name: 'maven', type: 'maven'
 	return mvnHome
+}
+def scanHome(){
+ def scannerHome = tool name: 'Scanner1', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+ return scannerHome
 }
