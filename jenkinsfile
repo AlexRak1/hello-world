@@ -56,8 +56,8 @@ pipeline{
 					}
 				}
 		}
-		
-	*/
+	*/	
+	
 		stage("Build Docker Image"){
 			steps{
 				sh "docker build . -t irakevich/hello-world:${DOCKER_TAG} "
