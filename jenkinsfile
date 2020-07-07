@@ -33,17 +33,17 @@ pipeline{
 				 
 			}
 		}
- /*
+ 
 		stage("SonarQube analysis") {
 			steps{
 				withSonarQubeEnv('sonarqube1') {
 				
 						sh "mvn -version"
 						sh"mvn clean verify sonar:sonar"
-						sh "mvn clean install"
+						//sh "mvn clean install"
 						//sh "mvn clean package"
-						sh "mv webapp/target/*.war  webapp/target/myweb.war"
-						sh "mvn sonar:sonar"
+						 
+						//sh "mvn sonar:sonar"
 					 
 				
 					 	 //sh "maven/bin sonar:sonar"
@@ -52,13 +52,12 @@ pipeline{
 						//sh "mvn sonar:sonar"
 						//define mvnH=  sh "echo ${MVN_HOME}bin/mvn"
 						//sh "mvn  -e -X  sonar:sonar"
-						//sh "mvn -e -X clean package sonar:sonar"
-						//sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.1.0.1829:sonar'					 
+						//sh "mvn -e -X clean package sonar:sonar"					 
 					 
 				} // submitted SonarQube taskId is automatically attached to the pipeline context
 			}
 		}
-*/		
+	
 		stage("Build Docker Image"){
 			steps{
 				sh "docker build . -t irakevich/hello-world:${DOCKER_TAG} "
