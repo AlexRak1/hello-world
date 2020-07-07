@@ -39,7 +39,7 @@ pipeline{
 				withSonarQubeEnv('sonarqube1') {
 				
 						sh "mvn -version"
-						sh"mvn clean verify sonar:sonar"
+						sh"mvn clean package sonar:sonar"
 						//sh "mvn clean install"
 						//sh "mvn clean package"
 						 
@@ -55,6 +55,16 @@ pipeline{
 						//sh "mvn -e -X clean package sonar:sonar"					 
 					 
 				} // submitted SonarQube taskId is automatically attached to the pipeline context
+			}
+		}
+		stage("Quality Gates"){
+			steps{
+				timeout(time: 1, unit 'HOURS"){
+					def qg = waitForQualityGate()
+					if (qg.status != 'OK'){
+						error "Pipeline aborted sue to quality gate failure: ${qg.status}"
+					}
+				}
 			}
 		}
 	
