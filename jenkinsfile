@@ -7,7 +7,6 @@ pipeline{
   
 	environment{
 		DOCKER_TAG = getDockerTag()
-		MVN_HOME = mvnHome()
 		SCAN_HOME = scanHome()
 	}
 	stages{
@@ -40,17 +39,9 @@ pipeline{
 				
 						sh "mvn -version"
 						sh"mvn clean package sonar:sonar"
-						//sh "mvn clean install"
 						//sh "mvn clean package"
 						 
 						//sh "mvn sonar:sonar"
-					 
-				
-					 	 //sh "maven/bin sonar:sonar"
-						 //sh "echo ${SCAN_HOME}/bin/sonar-scanner"
-						//sh "${SCAN_HOME}/bin/sonar-scanner" 
-						//sh "mvn sonar:sonar"
-						//define mvnH=  sh "echo ${MVN_HOME}bin/mvn"
 						//sh "mvn  -e -X  sonar:sonar"
 						//sh "mvn -e -X clean package sonar:sonar"					 
 					 
@@ -85,12 +76,12 @@ pipeline{
 				sh "chmod +x changeTag.sh"
 				sh "./changeTag.sh ${DOCKER_TAG}"
 				sshagent(['kops-machine']) {
-					sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ec2-user@3.12.161.201:/home/ec2-user/"
+					sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ec2-user@3.14.141.2:/home/ec2-user/"
 					script{
 						try{
-							sh "ssh ec2-user@3.12.161.201 kubectl apply -f ."					
+							sh "ssh ec2-user@3.14.141.2 kubectl apply -f ."					
 						}catch(error){
-							sh "ssh ec2-user@3.12.161.201 kubectl create -f ."	
+							sh "ssh ec2-user@3.14.141.2 kubectl create -f ."	
 						}
 					}
 				}
@@ -116,10 +107,6 @@ pipeline{
 def getDockerTag(){
 	def tag = sh script: 'git rev-parse HEAD', returnStdout: true
 	return tag
-}
-def mvnHome(){
-	def mvnHome = tool name: 'maven', type: 'maven'
-	return mvnHome
 }
 def scanHome(){
  //def scannerHome = tool name: 'Scanner1', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
