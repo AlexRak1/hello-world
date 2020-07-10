@@ -32,7 +32,7 @@ pipeline{
 				 
 			}
 		}
-
+ /*	
 		stage("SonarQube analysis") {
 			steps{
 				withSonarQubeEnv('sonarqube1') {
@@ -48,7 +48,7 @@ pipeline{
 				} // submitted SonarQube taskId is automatically attached to the pipeline context
 			}
 		}
-	 /*	
+	
 		stage("Quality Gates"){
 			steps{
 				timeout(time: 1, unit: "HOURS"){
@@ -76,12 +76,12 @@ pipeline{
 				sh "chmod +x changeTag.sh"
 				sh "./changeTag.sh ${DOCKER_TAG}"
 				sshagent(['kops-machine']) {
-					sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ec2-user@3.14.141.2:/home/ec2-user/"
+					sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ec2-user@13.59.216.2:/home/ec2-user/"
 					script{
 						try{
-							sh "ssh ec2-user@3.14.141.2 kubectl apply -f ."					
+							sh "ssh ec2-user@13.59.216.2 kubectl apply -f ."					
 						}catch(error){
-							sh "ssh ec2-user@3.14.141.2 kubectl create -f ."	
+							sh "ssh ec2-user@13.59.216.2 kubectl create -f ."	
 						}
 					}
 				}
