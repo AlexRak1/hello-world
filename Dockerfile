@@ -5,4 +5,3 @@ From tomcat:8
 
 #COPY webapp/target/*.war /opt/tomcat/webapps/myweb.war
 COPY webapp/target/*.war  /usr/local/tomcat/webapps/myweb.war
-
