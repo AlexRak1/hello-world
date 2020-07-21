@@ -30,8 +30,9 @@ pipeline{
 		}
 		steps {
 			withSonarQubeEnv('sonarqube2') {
-				sh "${scannerHome}/bin/sonar-scanner"
-			
+				//sh "${scannerHome}/bin/sonar-scanner"
+				sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.1.0.1829:sonar -X -Dsonar.language=java
+
 			}
 		 
 		}
